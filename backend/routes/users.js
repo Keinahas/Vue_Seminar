@@ -27,15 +27,27 @@ router.post("/", function (req, res) {
     });
 });
 
-router.delete("/:id", function (req, res) {
-  const userID = req.params.id;
+router.patch("/:id", function (req, res) {
   userModel
-    .deleteOne({ id: userID })
+    .updateOne({ id: req.params.id }, req.body)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
+});
+
+router.delete("/:id", function (req, res) {
+  userModel
+    .deleteOne({ id: req.params.id })
     .then((result) => {
       res.status(200).json(result);
     })
     .catch((err) => {
-      res.status(400).json(err);
+      console.log(err);
+      res.sendStatus(400);
     });
 });
 

@@ -4,6 +4,17 @@
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Title</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn v-if="!userId" color="primary" class="elevation-0" to="login"
+        ><v-icon left>mdi-login</v-icon>Login</v-btn
+      >
+      <v-btn
+        v-else
+        color="primary"
+        class="elevation-0"
+        @click="$store.commit('logout')"
+        ><v-icon left>mdi-logout</v-icon>Logout</v-btn
+      >
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -41,7 +52,11 @@ export default {
   name: "App",
 
   components: {},
-
+  computed: {
+    userId() {
+      return this.$store.state.id;
+    },
+  },
   data: () => ({
     //
     drawer: false,
