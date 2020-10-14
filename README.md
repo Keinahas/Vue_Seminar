@@ -1,5 +1,24 @@
 # hello_world1
 
+## IDE setup
+
+```
+Name: Vue VS Code Extension Pack
+Link: https://marketplace.visualstudio.com/items?itemName=sdras.vue-vscode-extensionpack
+
+Name: vuetify-vscode
+Link: https://marketplace.visualstudio.com/items?itemName=vuetifyjs.vuetify-vscode
+
+Name: Bracket Pair Colorizer 2
+Link: https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2
+
+Name: Auto Rename Tag
+Link: https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag
+
+Name: Auto Close Tag
+Link: https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag
+```
+
 ## Project setup
 
 ```
