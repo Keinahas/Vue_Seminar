@@ -13,7 +13,11 @@ router.post("/", function (req, res) {
         if (err) return res.sendStatus(400);
         if (isMatched) {
           authModule
-            .createToken({ id: user.id, name: user.name })
+            .createToken({
+              id: user.id,
+              name: user.name,
+              role: user.role,
+            })
             .then((token) => {
               res
                 .cookie("token", token, {
@@ -21,7 +25,7 @@ router.post("/", function (req, res) {
                   httpOnly: true,
                 })
                 .status(200)
-                .json({ id: user.id, name: user.name });
+                .json({ id: user.id, name: user.name, role: user.role });
             })
             .catch((err) => {
               console.log(err);
@@ -36,6 +40,44 @@ router.post("/", function (req, res) {
       console.log(err);
       res.sendStatus(400);
     });
+});
+
+router.post("/refresh", function (req, res) {
+  authModule
+    .decodeToken(req.cookies.token)
+    .then((decoded) => {
+      if (decoded) {
+        authModule
+          .createToken({
+            id: decoded.id,
+            name: decoded.name,
+            role: decoded.role,
+          })
+          .then((token) => {
+            res
+              .cookie("token", token, {
+                maxAge: 7200000,
+                httpOnly: true,
+              })
+              .status(200)
+              .json({ id: decoded.id, name: decoded.name, role: decoded.role });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.sendStatus(400);
+          });
+      } else {
+        throw Error("token not valid");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
+});
+
+router.post("/logout", function (req, res) {
+  res.clearCookie("token").sendStatus(200);
 });
 
 module.exports = router;

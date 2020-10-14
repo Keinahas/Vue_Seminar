@@ -29,8 +29,8 @@
             </v-list-item-icon>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
-
-          <v-list-item to="/user">
+          <v-subheader v-if="role == 'admin'">Admin</v-subheader>
+          <v-list-item to="/user" v-if="role == 'admin'">
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
@@ -55,6 +55,9 @@ export default {
   computed: {
     userId() {
       return this.$store.state.id;
+    },
+    role() {
+      return this.$store.state.role;
     },
   },
   data: () => ({

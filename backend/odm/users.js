@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   position: { type: String },
   contact: { type: String, required: true },
+  at: { type: String, default: "Lab" },
+  role: { type: String, default: "user" },
   createdAt: { type: Date, default: new Date() },
   nowAt: { type: String },
 });

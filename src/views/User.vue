@@ -14,7 +14,7 @@
                   label="ID"
                   :rules="[
                     (v) => !!v || 'required',
-                    (v) => (!!v && v.length > 4) || '4글자 이상 입력해주세요',
+                    (v) => (!!v && v.length >= 4) || '4글자 이상 입력해주세요',
                   ]"
                 ></v-text-field>
               </v-col>
@@ -25,7 +25,7 @@
                   type="password"
                   :rules="[
                     (v) => !!v || 'required',
-                    (v) => (!!v && v.length > 4) || '4글자 이상 입력해주세요',
+                    (v) => (!!v && v.length >= 4) || '4글자 이상 입력해주세요',
                   ]"
                 ></v-text-field>
               </v-col>
@@ -98,7 +98,9 @@ export default {
         if (this.addFlag)
           this.$axios
             .post("/api/users", this.newUserModel)
-            .then(() => {})
+            .then(() => {
+              this.getUser();
+            })
             .catch((err) => {
               console.log(err);
             });
@@ -110,13 +112,15 @@ export default {
               contact: this.newUserModel.contact,
               position: this.newUserModel.position,
             })
-            .then(() => {})
+            .then(() => {
+              this.getUser();
+            })
             .catch((err) => {
               console.log(err);
             });
         }
-        this.getUser();
         this.addDialog = false;
+        this.getUser();
       }
     },
     onCancle() {
